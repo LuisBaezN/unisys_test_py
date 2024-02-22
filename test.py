@@ -19,12 +19,12 @@ if __name__ == "__main__":
     c_shortcuts = [
         "send a line", 
         "send page", 
-        "clean page", 
+        "clean the page", 
         "clean below", 
-        "show next page", 
-        "show previuos page", 
-        "insert lines in workfile", 
-        "insert a line in workfile"]
+        "show the next page", 
+        "show a previuos page", 
+        "insert lines in the workfile", 
+        "insert a line in the workfile"]
     c_commands = [
         "close CANDE", 
         "show directories", 
@@ -44,18 +44,21 @@ if __name__ == "__main__":
         "show history commands", 
         "change CANDE terminal"]
     c_workfile = [
-        "create sequence", 
-        "resequence file", 
+        "create the sequence", 
+        "resequence a file", 
         "consult pages", 
         "refresh page", 
         "move lines", 
         "delete lines", 
-        "delete line", 
+        "delete a line", 
         "show next or prevous page", 
         "find a word", 
         "save workfile"]
 
     test_size = 10
+
+    with open ('info.json') as file:
+        info = json.load(file)
 
     generated = []
     for _ in range(test_size):
@@ -63,14 +66,17 @@ if __name__ == "__main__":
         while seq in generated:
             rn1, rn2, seq = generate_seq()
         generated.append(seq)
-        
-    print(generated)
+        if rn1 == 0:
+            message = f"What is the shortcut to {c_shortcuts[rn2]}?"
+            resp = info['CANDE'][cande_cat[rn1]][c_shortcuts[rn2]]
+            print(message)
+        elif rn1 == 1:
+            message = f"What is the command to {c_commands[rn2]}?"
+            resp = info['CANDE'][cande_cat[rn1]][c_commands[rn2]]
+            print(message)
+        else:
+            message = f"What is the command to {c_workfile[rn2]}?"
+            resp = info['CANDE'][cande_cat[rn1]][c_workfile[rn2]]
+            print(message)
 
-    '''
-    with open ('info.json') as file:
-        info = json.load(file)
-
-    for item in info['CANDE']:
-        print(item)
-        print('> Random number: ', random.randint(0,10))
-    '''
+            

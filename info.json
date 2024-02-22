@@ -5,12 +5,12 @@
         {
             "send a line": "ctrl + enter",
             "send page": "enter",
-            "clean page": "shift + home",
+            "clean the page": "shift + home",
             "clean below": "ctrl + end",
-            "show next page": "pgup",
-            "show previuos page": "pdn",
-            "insert lines in workfile": "enter",
-            "insert a line in workfile": "ctrl + enter"
+            "show the next page": "pgup",
+            "show a previuos page": "pgdn",
+            "insert lines in the workfile": "enter",
+            "insert a line in the workfile": "ctrl + enter"
         },
         "commands":
         {
@@ -34,13 +34,13 @@
         },
         "workfile":
         {
-            "create sequence": "SEQ",
-            "resequence file": "RESEQ",
+            "create the sequence": "SEQ",
+            "resequence a file": "RESEQ",
             "consult pages": "PAGE <number page to consult, if not spicified, then shows the first page, END to the last page>",
             "refresh page": "SAME",
             "move lines": "<+ or -><line number>",
             "delete lines": "DEL <line number or sequence like: initial-end>",
-            "delete line": "VOID<row>",
+            "delete a line": "VOID<row>",
             "show next or prevous page": "NEXT<+ or ->",
             "find a word": "FIND LIT. <word>",
             "save workfile": "SAVE"
