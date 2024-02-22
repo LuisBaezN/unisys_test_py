@@ -1,0 +1,49 @@
+{
+    "CANDE":
+    {
+        "short cuts":
+        {
+            "send a line": "ctrl + enter",
+            "send page": "enter",
+            "clean page": "shift + home",
+            "clean below": "ctrl + end",
+            "show next page": "pgup",
+            "show previuos page": "pdn",
+            "insert lines in workfile": "enter",
+            "insert a line in workfile": "ctrl + enter"
+        },
+        "commands":
+        {
+            "close CANDE": "?CLOSE",
+            "show directories": "FILE <path>:S",
+            "remove directories": "REM <path>",
+            "create directorie:": "MAKE <path>",
+            "show workfile": "WHAT",
+            "use file in workfile": "GET <path>",
+            "compile": "COMPILE <source path> AS $<object path>",
+            "run": "RUN $<path>",
+            "insert value in a running program": "?AX <your response>",
+            "insert value in a WFL running program": "?<mix number>AX <your response>",
+            "copy files": "COPY <original file path> AS <copied file path>",
+            "verify running programs": "QUEUED ?J ?W",
+            "verify jobs": "?J",
+            "verify waitings": "?W",
+            "delete jobs": "?<Mix number>DS",
+            "show history commands": "?SH ALL",
+            "change CANDE terminal": "?ON CANDE/<number>"
+        },
+        "workfile":
+        {
+            "create sequence": "SEQ",
+            "resequence file": "RESEQ",
+            "consult pages": "PAGE <number page to consult, if not spicified, then shows the first page, END to the last page>",
+            "refresh page": "SAME",
+            "move lines": "<+ or -><line number>",
+            "delete lines": "DEL <line number or sequence like: initial-end>",
+            "delete line": "VOID<row>",
+            "show next or prevous page": "NEXT<+ or ->",
+            "find a word": "FIND LIT. <word>",
+            "save workfile": "SAVE"
+        }
+    }
+}
