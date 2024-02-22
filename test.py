@@ -1,5 +1,6 @@
 import json
 import random
+import re
 
 def generate_seq() -> list:
     rn1 = random.randint(0, len(cande_cat) - 1)
@@ -60,6 +61,7 @@ if __name__ == "__main__":
     with open ('info.json') as file:
         info = json.load(file)
 
+    '''
     generated = []
     for _ in range(test_size):
         rn1, rn2, seq = generate_seq()
@@ -67,16 +69,26 @@ if __name__ == "__main__":
             rn1, rn2, seq = generate_seq()
         generated.append(seq)
         if rn1 == 0:
-            message = f"What is the shortcut to {c_shortcuts[rn2]}?"
+            message = f"> What is the shortcut to {c_shortcuts[rn2]}?"
             resp = info['CANDE'][cande_cat[rn1]][c_shortcuts[rn2]]
             print(message)
         elif rn1 == 1:
-            message = f"What is the command to {c_commands[rn2]}?"
+            message = f"> What is the command to {c_commands[rn2]}?"
             resp = info['CANDE'][cande_cat[rn1]][c_commands[rn2]]
             print(message)
         else:
-            message = f"What is the command to {c_workfile[rn2]}?"
+            message = f"> What is the command to {c_workfile[rn2]}?"
             resp = info['CANDE'][cande_cat[rn1]][c_workfile[rn2]]
             print(message)
+    '''
 
-            
+    test_user = input("> Ingrese un comando: ")
+    test_solu = info['CANDE']["commands"]["show directories"]
+
+    
+
+    print(f"Tu respuesta: {test_user}\nLa solucion: {test_solu}")
+    if test_user == test_solu:
+        print(True)
+    else:
+        print(False)

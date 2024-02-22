@@ -15,7 +15,7 @@
         "commands":
         {
             "close CANDE": "?CLOSE",
-            "show directories": "FILE <path>:S",
+            "show directories": "FILE <path>",
             "remove directories": "REM <path>",
             "create directorie:": "MAKE <path>",
             "show workfile": "WHAT",
