@@ -15,6 +15,39 @@ def generate_seq() -> list:
     seq = str(rn1) + " " + str(rn2)
     return [rn1, rn2, seq]
 
+def verify_brackets(cad: str, l_brack:str = "(", r_brack:str = ")") -> bool:
+    resp = False
+    simb = []
+    l_cont = 0
+    r_cont = 0
+
+    for i in cad:
+        if i == l_brack:
+            l_cont += 1
+            simb.append(i)
+        elif i == r_brack:
+            r_cont += 1
+            simb.append(i)
+
+    ini = 0
+    if l_cont == r_cont and simb[ini] == l_brack:
+        i = 1
+        while len(simb) > 0:
+            if simb[ini] == simb[i]:
+                ini = i
+                i += 1
+            else:
+                simb.pop(i)
+                simb.pop(ini)
+            if i == len(simb):
+                ini = 0
+                i = ini +1
+
+    if len(simb) == 0:
+        resp = True
+
+    return resp
+
 if __name__ == "__main__":
     cande_cat = ["short cuts", "commands", "workfile"]
     c_shortcuts = [
@@ -57,9 +90,32 @@ if __name__ == "__main__":
         "save workfile"]
 
     test_size = 10
+    reg_filler = "[A-Z 0-9/]*"
+    total = 0
+    s_tot = 0
+    pass_score = 7
 
     with open ('info.json') as file:
         info = json.load(file)
+
+    message = "> If you insert a command, type the action between <>\n> Example: COMMAND <action>"
+    print(message)
+
+    test_solu = info['CANDE']["commands"]["show directories"]
+    test_user = input("> Ingrese un comando: ")
+
+    resp = verify_brackets(test_user, "<", ">")
+
+    while not resp:
+        print("\n> Not valid input. Verify the brackets.")
+        print("> Your response was:", test_user)
+        test_user = input("\n> Ingrese un comando: ")
+        resp = verify_brackets(test_user, "<", ">")
+
+
+    print(resp)
+
+
 
     '''
     generated = []
@@ -80,10 +136,21 @@ if __name__ == "__main__":
             message = f"> What is the command to {c_workfile[rn2]}?"
             resp = info['CANDE'][cande_cat[rn1]][c_workfile[rn2]]
             print(message)
-    '''
+    
 
     test_user = input("> Ingrese un comando: ")
     test_solu = info['CANDE']["commands"]["show directories"]
+
+    end = len(test_solu)
+    if "<" in test_solu:
+        lim = test_solu.index("<") - 1
+        print(f"|{test_solu[:lim]},{test_user[:lim]}|")
+        if test_solu[:lim] == test_user[:lim]:
+            sub_tot = pass_score
+
+        reg_verifier = test_solu[:lim] + reg_filler
+        
+
 
     
 
@@ -92,3 +159,5 @@ if __name__ == "__main__":
         print(True)
     else:
         print(False)
+
+    '''
