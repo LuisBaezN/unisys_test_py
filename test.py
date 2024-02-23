@@ -33,20 +33,72 @@ def verify_brackets(cad: str, l_brack:str = "(", r_brack:str = ")") -> bool:
     if l_cont == r_cont and simb[ini] == l_brack:
         i = 1
         while len(simb) > 0:
-            if simb[ini] == simb[i]:
-                ini = i
-                i += 1
+            if simb[ini] == "<":
+                if simb[ini] == simb[i]:
+                    ini = i
+                    i += 1
+                else:
+                    simb.pop(i)
+                    simb.pop(ini)
+                if i == len(simb):
+                    ini = 0
+                    i = ini +1
             else:
-                simb.pop(i)
-                simb.pop(ini)
-            if i == len(simb):
-                ini = 0
-                i = ini +1
+                break
 
     if len(simb) == 0:
         resp = True
 
     return resp
+
+def verify_resp(solu:str) -> int:
+    punt = 0
+    b_flag = False
+    test_user = input("> Ingrese el comando: ")
+
+    try:
+        if "<" in solu or ">" in solu:
+            b_flag = True
+            resp = verify_brackets(test_user, "<", ">")
+
+            while not resp:
+                print("\n> Not valid input. Verify the brackets.")
+                print("> Your response was:", test_user)
+                test_user = input("\n> Your response: ")
+                resp = verify_brackets(test_user, "<", ">")
+            
+            if solu[0] == '?':
+                cadena = "[?]" + solu[1:]
+            else:
+                cadena = solu
+
+            if "$" in cadena:
+                cadena = cadena[:cadena.index("$")] + "[$]" + cadena[cadena.index("$") + 1:]
+
+            reg_val = ""
+            while "<" in cadena:
+                reg_val = reg_val + f"{cadena[:cadena.index("<")]}<{reg_filler}>"
+                if cadena.index(">") + 1 < len(cadena):
+                    cadena = cadena[cadena.index(">") + 1:]
+                else:
+                    cadena = cadena[cadena.index(">"):]
+        else:
+            if test_user == solu:
+                punt = 1
+            
+
+        if b_flag:        
+            regex_comp = re.compile(reg_val)
+            print(regex_comp.fullmatch(test_user))
+            if regex_comp.fullmatch(test_user):
+                punt = 1
+        
+        print(f"Your response: {test_user}\nThe solution: {solu}")
+        return punt
+    except Exception:
+        print(">> Yor response must include: < >")
+        return punt
+    
 
 if __name__ == "__main__":
     cande_cat = ["short cuts", "commands", "workfile"]
@@ -89,35 +141,21 @@ if __name__ == "__main__":
         "find a word", 
         "save workfile"]
 
-    test_size = 10
-    reg_filler = "[A-Z 0-9/]*"
+    test_size = 3
+    reg_filler = "[A-z 0-9/+-]+"
     total = 0
-    s_tot = 0
-    pass_score = 7
 
     with open ('info.json') as file:
         info = json.load(file)
 
-    message = "> If you insert a command, type the action between <>\n> Example: COMMAND <action>"
+    #resp = info['CANDE']["commands"]["change CANDE terminal"]
+    #verify_resp(resp)
+    #re.compile("something").match("som")
+    
+    message = "\n> If you insert a command, type the action between <>\n> Example: COMMAND <action>\n\n"
+    print("\n", "-"*20, "INSTRUCTIONS ", "-"*20)
     print(message)
-
-    test_solu = info['CANDE']["commands"]["show directories"]
-    test_user = input("> Ingrese un comando: ")
-
-    resp = verify_brackets(test_user, "<", ">")
-
-    while not resp:
-        print("\n> Not valid input. Verify the brackets.")
-        print("> Your response was:", test_user)
-        test_user = input("\n> Ingrese un comando: ")
-        resp = verify_brackets(test_user, "<", ">")
-
-
-    print(resp)
-
-
-
-    '''
+    
     generated = []
     for _ in range(test_size):
         rn1, rn2, seq = generate_seq()
@@ -128,36 +166,17 @@ if __name__ == "__main__":
             message = f"> What is the shortcut to {c_shortcuts[rn2]}?"
             resp = info['CANDE'][cande_cat[rn1]][c_shortcuts[rn2]]
             print(message)
+            total += verify_resp(resp)
         elif rn1 == 1:
             message = f"> What is the command to {c_commands[rn2]}?"
             resp = info['CANDE'][cande_cat[rn1]][c_commands[rn2]]
             print(message)
+            total += verify_resp(resp)
         else:
             message = f"> What is the command to {c_workfile[rn2]}?"
             resp = info['CANDE'][cande_cat[rn1]][c_workfile[rn2]]
             print(message)
+            total += verify_resp(resp)
     
-
-    test_user = input("> Ingrese un comando: ")
-    test_solu = info['CANDE']["commands"]["show directories"]
-
-    end = len(test_solu)
-    if "<" in test_solu:
-        lim = test_solu.index("<") - 1
-        print(f"|{test_solu[:lim]},{test_user[:lim]}|")
-        if test_solu[:lim] == test_user[:lim]:
-            sub_tot = pass_score
-
-        reg_verifier = test_solu[:lim] + reg_filler
-        
-
-
+    print(f"> Your score: {(total/test_size)*100:.2f}")
     
-
-    print(f"Tu respuesta: {test_user}\nLa solucion: {test_solu}")
-    if test_user == test_solu:
-        print(True)
-    else:
-        print(False)
-
-    '''
