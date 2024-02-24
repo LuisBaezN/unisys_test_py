@@ -141,7 +141,7 @@ if __name__ == "__main__":
         "find a word", 
         "save workfile"]
 
-    test_size = 3
+    test_size = 10
     reg_filler = "[A-z 0-9/+-]+"
     total = 0
 
