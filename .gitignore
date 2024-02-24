@@ -1,0 +1,5 @@
+# Executable files
+dist
+build
+*.exe
+*.spec
