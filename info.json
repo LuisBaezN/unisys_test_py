@@ -45,5 +45,20 @@
             "find a word": "FIND LIT. <word>",
             "save workfile": "SAVE"
         }
+    },
+    "Acronym":
+    {
+        "MCP": "Master Control Program",
+        "ODT": "Operator Display Terminal",
+        "MARC": "Menu Assisted Resource Control",
+        "CANDE": "Command AND Edit"
+    },
+    "INQUIRY":
+    {
+        "run INQUIRY": "RUN INQUIRY/<Data base name>",
+        "show available datasets": "SHOW DATA",
+        "show dataset": "SHOW <dataset name>",
+        "select dataset": "SELECT <Dataset>",
+        "NEXT row": "NEXT"
     }
 }

@@ -54,7 +54,7 @@ def verify_brackets(cad: str, l_brack:str = "(", r_brack:str = ")") -> bool:
 def verify_resp(solu:str) -> int:
     punt = 0
     b_flag = False
-    test_user = input("> Ingrese el comando: ")
+    test_user = input("> Type your response: ")
 
     try:
         if "<" in solu or ">" in solu:
@@ -89,7 +89,6 @@ def verify_resp(solu:str) -> int:
 
         if b_flag:        
             regex_comp = re.compile(reg_val)
-            print(regex_comp.fullmatch(test_user))
             if regex_comp.fullmatch(test_user):
                 punt = 1
         
@@ -140,8 +139,10 @@ if __name__ == "__main__":
         "show next or prevous page", 
         "find a word", 
         "save workfile"]
+    acronym = ["MCP", "ODT", "MARC", "CANDE"]
 
     test_size = 10
+    acron_size = 2
     reg_filler = "[A-z 0-9/+-]+"
     total = 0
 
@@ -157,7 +158,7 @@ if __name__ == "__main__":
     print(message)
     
     generated = []
-    for _ in range(test_size):
+    for _ in range(test_size - acron_size):
         rn1, rn2, seq = generate_seq()
         while seq in generated:
             rn1, rn2, seq = generate_seq()
@@ -177,6 +178,17 @@ if __name__ == "__main__":
             resp = info['CANDE'][cande_cat[rn1]][c_workfile[rn2]]
             print(message)
             total += verify_resp(resp)
+
+    generated = []
+    for _ in range(acron_size):
+        rn1 = random.randint(0, 3)
+        while rn1 in generated:
+            rn1 = random.randint(0, 3)
+        generated.append(rn1)
+        message = f"What is the meaning of {acronym[rn1]}"
+        print(message)
+        resp = info['Acronym'][acronym[rn1]]
+        total += verify_resp(resp)
     
-    print(f"> Your score: {(total/test_size)*100:.2f}")
+    print(f"\n\n> Your score: {(total/test_size)*100:.2f}")
     
